@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  *
  */
 @SpringBootApplication
-@EntityScan(basePackages= {"com.uzak.tutoring.dao"})
+@EntityScan(basePackages= {"com.uzak.tutoring.entity"})
 @ComponentScan(basePackages= {"com.uzak.tutoring"})
 public class Start {
 	public static void main(String[] args) {
