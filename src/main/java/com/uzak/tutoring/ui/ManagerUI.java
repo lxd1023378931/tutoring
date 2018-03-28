@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.uzak.tutoring.common.dao.CommonDao;
 import com.uzak.tutoring.entity.Manager;
-import com.uzak.tutoring.repository.ManagerRepository;
 
 /**
  * 管理员接口
@@ -18,19 +18,15 @@ import com.uzak.tutoring.repository.ManagerRepository;
 @RequestMapping("/manager")
 public class ManagerUI {
 	@Autowired
-	private ManagerRepository managerRepository;
-
+	CommonDao dao;
+	
 	@RequestMapping("getUserByID")
 	@ResponseBody
 	public Manager getUserByID(Long id) {
-		Manager manager = managerRepository.getUserByID(id);
+		Manager manager = new Manager();
+		manager.setID(1L);
 		System.out.println(manager.getName());
 		return manager;
 	}
 
-	@RequestMapping("/save")
-	@ResponseBody
-	public void saveUser(Manager m) {
-		managerRepository.save(m);
-	}
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.uzak.tutoring.common.entity.CommonEntity;
+
 /**
  * 管理员实体类
  * 
@@ -17,7 +19,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Manager")
-public class Manager {
+public class Manager extends CommonEntity<Manager>{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2070686878913092222L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long iD;
