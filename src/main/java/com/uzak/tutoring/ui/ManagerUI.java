@@ -1,5 +1,7 @@
 package com.uzak.tutoring.ui;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,5 +54,17 @@ public class ManagerUI {
 	public Manager delete(Manager manager) {
 		dao.delete(manager);
 		return manager;
+	}
+
+	@RequestMapping("list")
+	@ResponseBody
+	public List<Manager> list() {
+		return dao.query("from Manager");
+	}
+
+	@RequestMapping("set")
+	@ResponseBody
+	public Object set() {
+		return dao.querySql("select Name from Manager");
 	}
 }
