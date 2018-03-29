@@ -5,7 +5,12 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Dao<T> implements Serializable, IDao<T> {
+public class Dao<T> implements Serializable, Cloneable, IDao<T> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Map<String, Object> toMap() {
@@ -74,6 +79,11 @@ public class Dao<T> implements Serializable, IDao<T> {
 		sb.deleteCharAt(sb.length() - 1);
 		sb.append("}");
 		return sb.toString();
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 }

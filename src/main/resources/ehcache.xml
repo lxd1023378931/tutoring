@@ -16,13 +16,18 @@
 	<!-- 1、timeToLiveSeconds的定义是：以创建时间为基准开始计算的超时时长； 2、timeToIdleSeconds的定义是：在创建时间和最近访问时间中取出离现在最近的时间作为基准计算的超时时长； 
 		3、如果仅设置了timeToLiveSeconds，则该对象的超时时间=创建时间+timeToLiveSeconds，假设为A； 4、如果没设置timeToLiveSeconds，则该对象的超时时间=max(创建时间，最近访问时间)+timeToIdleSeconds，假设为B； 
 		5、如果两者都设置了，则取出A、B最少的值，即min(A,B)，表示只要有一个超时成立即算超时。 -->
-	<defaultCache maxElementsInMemory="10000" 　 eternal="false" 　
-		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true" 　 />
+	<defaultCache 
+		maxElementsInMemory="10000"
+	 	eternal="false" 
+	 	timeToIdleSeconds="120" 
+	 	timeToLiveSeconds="120" 
+	 	overflowToDisk="true"
+	 	/>
 
 	<!--可以给每个实体类指定一个配置文件，通过name属性指定，要使用类的全名 -->
-	<cache name="com.uzak.tutoring.entity.Manager"
+	<!-- <cache name="com.uzak.tutoring.entity.Manager"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="300"
-		timeToLiveSeconds="600" overflowToDisk="true" />
+		timeToLiveSeconds="600" overflowToDisk="true" /> -->
 	<!-- 二级缓存的使用策略一般有这几种：read-only、nonstrict-read-write、read-write、transactional。注意：我们通常使用二级缓存都是将其配置成 
 		read-only ，即我们应当在那些不需要进行修改的实体类上使用二级缓存，否则如果对缓存进行读写的话，性能会变差，这样设置缓存就失去了意义。 -->
 

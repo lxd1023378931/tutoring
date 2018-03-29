@@ -24,9 +24,13 @@ import com.uzak.tutoring.common.dao.Dao;
 @Table(name = "Manager")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Manager extends Dao<Manager> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -365326455979920932L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	/**
 	 * 用户名
 	 */
@@ -98,11 +102,11 @@ public class Manager extends Dao<Manager> {
 	@Column
 	protected String isDel;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -216,5 +220,10 @@ public class Manager extends Dao<Manager> {
 
 	public void setIsDel(String isDel) {
 		this.isDel = isDel;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getId();
 	}
 }

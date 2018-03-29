@@ -17,8 +17,8 @@ import com.uzak.tutoring.entity.Manager;
  * @date 2018/3/28
  */
 @Controller
-@RequestMapping("/api/v/")
-public class ManagerUI {
+@RequestMapping("/login/")
+public class LoginUI {
 	@Autowired
 	DaoUtil<Manager> dao;
 	
