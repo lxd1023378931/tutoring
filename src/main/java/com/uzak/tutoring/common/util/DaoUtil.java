@@ -165,6 +165,26 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 		return (List<T>) query.setFirstResult((pageIndex) * pageSize).setMaxResults(pageSize).list();
 	}
 
+	@SuppressWarnings({ "deprecation", "unchecked" })
+	@Override
+	public List<T> querySql(String sql, Object... params) {
+		Query<T> query = getSession().createSQLQuery(sql);
+		for (int i = 0; i < params.length; i++) {
+			query.setParameter(i, params[i]);
+		}
+		return (List<T>) query.list();
+	}
+
+	@SuppressWarnings({ "deprecation", "unchecked" })
+	@Override
+	public List<T> querySql(String sql, int pageIndex, int pageSize, Object... params) {
+		Query<T> query = getSession().createSQLQuery(sql);
+		for (int i = 0; i < params.length; i++) {
+			query.setParameter(i, params[i]);
+		}
+		return (List<T>) query.setFirstResult((pageIndex) * pageSize).setMaxResults(pageSize).list();
+	}
+
 	@Override
 	public int executeHql(String hql, Object... params) {
 		@SuppressWarnings("unchecked")
@@ -183,6 +203,10 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 			query.setParameter(i, params[i]);
 		}
 		return query.executeUpdate();
+	}
+
+	public int count(String hql, Object... params) {
+		return query(hql, params).size();
 	}
 
 }
