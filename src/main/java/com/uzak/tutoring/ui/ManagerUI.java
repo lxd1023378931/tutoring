@@ -59,7 +59,7 @@ public class ManagerUI {
 	@RequestMapping("list")
 	@ResponseBody
 	public List<Manager> list() {
-		return dao.query("from Manager");
+		return dao.query("from Manager", true);
 	}
 
 	@RequestMapping("set")

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.transaction.Transactional;
@@ -23,6 +24,7 @@ import com.uzak.tutoring.util.ObjectUtil;
  * @date 2018年3月29日
  */
 @Service
+@Cacheable
 @Transactional
 public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 	@Autowired
@@ -146,22 +148,26 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 	}
 
 	@Override
-	public List<T> query(String hql, Object... params) {
+	public List<T> query(String hql, boolean cacheable, Object... params) {
 		@SuppressWarnings("unchecked")
 		Query<T> query = getSession().createQuery(hql);
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i, params[i]);
 		}
+		// 是否开启查询缓存，数据变化不频繁查询参数较稳定的建议开启查询缓存
+		query.setCacheable(cacheable);
 		return (List<T>) query.list();
 	}
 
 	@Override
-	public List<T> query(String hql, int pageIndex, int pageSize, Object... params) {
+	public List<T> query(String hql, boolean cacheable, int pageIndex, int pageSize, Object... params) {
 		@SuppressWarnings("unchecked")
 		Query<T> query = getSession().createQuery(hql);
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i, params[i]);
 		}
+		// 是否开启查询缓存，数据变化不频繁查询参数较稳定的建议开启查询缓存
+		query.setCacheable(cacheable);
 		return (List<T>) query.setFirstResult((pageIndex) * pageSize).setMaxResults(pageSize).list();
 	}
 
@@ -206,7 +212,7 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 	}
 
 	public int count(String hql, Object... params) {
-		return query(hql, params).size();
+		return query(hql, false, params).size();
 	}
 
 }
