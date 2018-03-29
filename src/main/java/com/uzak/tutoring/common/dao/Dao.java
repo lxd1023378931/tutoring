@@ -1,17 +1,17 @@
-package com.uzak.tutoring.common.entity;
+package com.uzak.tutoring.common.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommonEntity<T> implements Serializable, ICommonEntity<T> {
+public class Dao<T> implements Serializable, IDao<T> {
 
 	@Override
 	public Map<String, Object> toMap() {
 		try {
 			@SuppressWarnings("rawtypes")
-			Class<? extends CommonEntity> clazz = this.getClass();
+			Class<? extends Dao> clazz = this.getClass();
 			Map<String, Object> map = new HashMap<>();
 			Field[] fields = clazz.getDeclaredFields();
 			for (Field field : fields) {
@@ -75,4 +75,5 @@ public class CommonEntity<T> implements Serializable, ICommonEntity<T> {
 		sb.append("}");
 		return sb.toString();
 	}
+
 }

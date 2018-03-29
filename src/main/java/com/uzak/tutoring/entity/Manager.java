@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.uzak.tutoring.common.entity.CommonEntity;
+import com.uzak.tutoring.common.dao.Dao;
 
 /**
  * 管理员实体类
@@ -19,18 +19,14 @@ import com.uzak.tutoring.common.entity.CommonEntity;
  */
 @Entity
 @Table(name = "Manager")
-public class Manager extends CommonEntity<Manager>{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2070686878913092222L;
+public class Manager extends Dao<Manager> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long iD;
+	private Long id;
 	/**
 	 * 用户名
 	 */
+	@Id
 	@Column
 	private String name;
 	/**
@@ -91,17 +87,19 @@ public class Manager extends CommonEntity<Manager>{
 	 * 修改时间
 	 */
 	private Date modifyTime;
+
 	/**
 	 * 删除标记位
 	 */
-	private String isDel;
+	@Column
+	protected String isDel;
 
-	public Long getID() {
-		return iD;
+	public Long getId() {
+		return id;
 	}
 
-	public void setID(Long iD) {
-		this.iD = iD;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -215,5 +213,4 @@ public class Manager extends CommonEntity<Manager>{
 	public void setIsDel(String isDel) {
 		this.isDel = isDel;
 	}
-
 }

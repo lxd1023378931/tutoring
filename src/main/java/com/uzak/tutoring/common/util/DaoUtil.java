@@ -1,15 +1,21 @@
-package com.uzak.tutoring.common.dao;
+package com.uzak.tutoring.common.util;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.uzak.tutoring.common.dao.IDao;
+import com.uzak.tutoring.exception.NullKeyException;
+import com.uzak.tutoring.util.ObjectUtil;
 
 /**
  * @author 梁秀斗
@@ -17,7 +23,8 @@ import org.springframework.stereotype.Service;
  * @date 2018年3月29日
  */
 @Service
-public class CommonDao<T> implements IBaseDao<T> {
+@Transactional
+public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 	@Autowired
 	private EntityManager entityManager;
 
@@ -84,47 +91,64 @@ public class CommonDao<T> implements IBaseDao<T> {
 		return flag;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
-	public T fill(T entity) {
-		Class<? extends CommonDao> clazz = this.getClass();
+	public boolean fill(T entity) {
+		boolean flag = false;
+		Class<? extends IDao> clazz = entity.getClass();
 		try {
-			T t = (T) clazz.newInstance();
+			List<Object> params = new ArrayList<>();
 			StringBuilder hql = new StringBuilder("from " + clazz.getSimpleName() + " where 1=1 ");
-			Field[] fields = this.getClass().getDeclaredFields();
+			Field[] fields = clazz.getDeclaredFields();
 			for (Field f : fields) {
 				if (f.isAnnotationPresent(Id.class)) {
 					f.setAccessible(true);
-					Object o = f.get(this);
-					if (o != null) {
-						String name = f.getName();
+					String name = f.getName();
+					Object o = f.get(entity);
+					// (不为空 && (是字符串但是不为空 || 是数字但不为0))
+					if (ObjectUtil.isNotEmpty(o)) {
 						// 首字母转大写
 						name = name.substring(0, 1).toUpperCase() + name.substring(1);
-						hql.append(" and ").append(name).append(" = ");
-						if (String.class.getName().equals(f.getType().getTypeName())) {
-							hql.append("'").append(o.toString()).append("'");
-						} else {
-							hql.append(o.toString());
-						}
+						hql.append(" and ").append(name).append(" = ? ");
+						params.add(o);
+					} else {
+						throw new NullKeyException("主键为空:" + name);
 					}
 				}
 			}
 			Session session = getSession();
-			Query q = session.createQuery(hql.toString());
+			@SuppressWarnings("unchecked")
+			Query<T> q = session.createQuery(hql.toString());
+			for (int i = 0; i < params.size(); i++) {
+				q.setParameter(i, params.get(i));
+			}
+
 			List<T> list = q.list();
 			if (list.size() > 0) {
-				Object obj = list.get(0);
-				return (T) obj;
+				T t = list.get(0);
+				Field[] fieldsA = clazz.getDeclaredFields();
+				Field[] fieldsB = t.getClass().getDeclaredFields();
+				for (int i = 0; i < fieldsA.length; i++) {
+					fieldsA[i].setAccessible(true);
+					fieldsB[i].setAccessible(true);
+					fieldsA[i].set(entity, fieldsB[i].get(t));
+				}
+				flag = true;
 			}
-			return t;
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NullKeyException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return flag;
 	}
 
 	@Override
 	public List<T> query(String hql, Object... params) {
-		Query query = getSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		Query<T> query = getSession().createQuery(hql);
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i, params[i]);
 		}
@@ -133,7 +157,8 @@ public class CommonDao<T> implements IBaseDao<T> {
 
 	@Override
 	public List<T> query(String hql, int pageIndex, int pageSize, Object... params) {
-		Query query = getSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		Query<T> query = getSession().createQuery(hql);
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i, params[i]);
 		}
@@ -142,16 +167,18 @@ public class CommonDao<T> implements IBaseDao<T> {
 
 	@Override
 	public int executeHql(String hql, Object... params) {
-		Query query = getSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		Query<T> query = getSession().createQuery(hql);
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i, params[i]);
 		}
 		return query.executeUpdate();
 	}
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public int executeSql(String sql, Object... params) {
-		Query query = getSession().createSQLQuery(sql);
+		Query<T> query = getSession().createSQLQuery(sql);
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i, params[i]);
 		}

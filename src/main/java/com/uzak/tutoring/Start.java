@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Hello world!
+ * 启动类
  *
  */
 @SpringBootApplication
-//@ComponentScan(basePackages= {"com.uzak.tutoring"})
+@ComponentScan(basePackages= {"com.uzak.tutoring"})
 public class Start {
 	public static void main(String[] args) {
 		SpringApplication.run(Start.class, args);

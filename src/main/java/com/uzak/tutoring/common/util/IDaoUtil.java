@@ -1,4 +1,4 @@
-package com.uzak.tutoring.common.dao;
+package com.uzak.tutoring.common.util;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.hibernate.Session;
  * @mail liangxiudou@zving.com
  * @date 2018年3月28日
  */
-public interface IBaseDao<T> {
+public interface IDaoUtil<T> {
 	/**
 	 * 获取Session
 	 * 
@@ -53,7 +53,7 @@ public interface IBaseDao<T> {
 	 * 
 	 * @return
 	 */
-	T fill(T entity);
+	boolean fill(T entity);
 
 	/**
 	 * 执行hql更新语句
