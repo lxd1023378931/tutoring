@@ -71,6 +71,23 @@ public interface IDaoUtil<T> {
 	 * @param params
 	 * @return
 	 */
+	List<T> querySql(String sql, Object... params);
+
+	/**
+	 * 分页执行hql查询语句
+	 * 
+	 * @param hql
+	 * @return
+	 */
+	List<T> querySql(String sql, int pageIndex, int pageSize, Object... params);
+
+	/**
+	 * 执行sql更新语句
+	 * 
+	 * @param sql
+	 * @param params
+	 * @return
+	 */
 	int executeSql(String sql, Object... params);
 
 	/**
