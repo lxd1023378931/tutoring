@@ -23,9 +23,9 @@ import com.uzak.tutoring.common.dao.Dao;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "Manager")
+@Table(name = "UZManager")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Manager extends Dao<Manager> {
+public class UZManager extends Dao<UZManager> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

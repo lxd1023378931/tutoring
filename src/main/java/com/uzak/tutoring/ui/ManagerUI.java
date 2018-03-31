@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uzak.tutoring.annocation.LoggedIn;
 import com.uzak.tutoring.common.util.DaoUtil;
-import com.uzak.tutoring.entity.Manager;
+import com.uzak.tutoring.entity.UZManager;
 
 /**
  * 管理员接口
@@ -21,7 +21,7 @@ import com.uzak.tutoring.entity.Manager;
 @RequestMapping("/api/v/")
 public class ManagerUI {
 	@Autowired
-	DaoUtil<Manager> dao;
+	DaoUtil<UZManager> dao;
 
 	@RequestMapping("do")
 	@ResponseBody
@@ -32,7 +32,7 @@ public class ManagerUI {
 
 	@RequestMapping("save")
 	@ResponseBody
-	public Manager save(Manager manager) {
+	public UZManager save(UZManager manager) {
 		if (dao.save(manager)) {
 			return manager;
 		}
@@ -41,7 +41,7 @@ public class ManagerUI {
 
 	@RequestMapping("get")
 	@ResponseBody
-	public Manager get(Manager manager) {
+	public UZManager get(UZManager manager) {
 		if (dao.fill(manager)) {
 			return manager;
 		} else {
@@ -52,21 +52,21 @@ public class ManagerUI {
 
 	@RequestMapping("update")
 	@ResponseBody
-	public Manager update(Manager manager) {
+	public UZManager update(UZManager manager) {
 		dao.update(manager);
 		return manager;
 	}
 
 	@RequestMapping("delete")
 	@ResponseBody
-	public Manager delete(Manager manager) {
+	public UZManager delete(UZManager manager) {
 		dao.delete(manager);
 		return manager;
 	}
 
 	@RequestMapping("list")
 	@ResponseBody
-	public List<Manager> list() {
+	public List<UZManager> list() {
 		return dao.query("from Manager", true);
 	}
 

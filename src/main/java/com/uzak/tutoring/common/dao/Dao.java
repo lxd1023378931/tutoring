@@ -3,10 +3,11 @@ package com.uzak.tutoring.common.dao;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONObject;
+
+import com.uzak.tutoring.util.ObjectUtil;
 
 public class Dao<T> implements Serializable, Cloneable, IDao<T> {
 
@@ -17,24 +18,7 @@ public class Dao<T> implements Serializable, Cloneable, IDao<T> {
 
 	@Override
 	public Map<String, Object> toMap() {
-		Map<String, Object> map = new HashMap<>();
-		try {
-			@SuppressWarnings("rawtypes")
-			Class<? extends Dao> clazz = this.getClass();
-			Field[] fields = clazz.getDeclaredFields();
-			for (Field field : fields) {
-				field.setAccessible(true);
-				// 过滤掉由final修饰的属性
-				if (!Modifier.isFinal(field.getModifiers())) {
-					map.put(field.getName(), field.get(this));
-				}
-			}
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		return map;
+		return ObjectUtil.toMap(this);
 	}
 
 	/**
