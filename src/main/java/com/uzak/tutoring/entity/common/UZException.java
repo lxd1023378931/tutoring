@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.uzak.tutoring.common.dao.Dao;
+import com.uzak.tutoring.util.YesOrNo;
 
 @SuppressWarnings("serial")
 @Entity
@@ -24,6 +25,8 @@ public class UZException extends Dao<UZException> {
 	private String detail;
 	@Column
 	private Date addTime;
+	@Column
+	private String catched = YesOrNo.NO;
 
 	public Long getId() {
 		return id;
@@ -55,6 +58,14 @@ public class UZException extends Dao<UZException> {
 
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+
+	public String getCatched() {
+		return catched;
+	}
+
+	public void setCatched(String catched) {
+		this.catched = catched;
 	}
 
 }

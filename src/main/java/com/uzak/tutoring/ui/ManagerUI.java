@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.uzak.tutoring.annocation.LoggedIn;
 import com.uzak.tutoring.common.util.DaoUtil;
 import com.uzak.tutoring.entity.UZManager;
+import com.uzak.tutoring.exception.NullKeyException;
 
 /**
  * 管理员接口
@@ -18,7 +19,7 @@ import com.uzak.tutoring.entity.UZManager;
  * @date 2018/3/28
  */
 @Controller
-@RequestMapping("/api/v/")
+@RequestMapping("/manager/")
 public class ManagerUI {
 	@Autowired
 	DaoUtil<UZManager> dao;
@@ -41,13 +42,10 @@ public class ManagerUI {
 
 	@RequestMapping("get")
 	@ResponseBody
-	public UZManager get(UZManager manager) {
-		if (dao.fill(manager)) {
-			return manager;
-		} else {
-			return null;
-		}
-
+	public UZManager get(UZManager manager) throws NullKeyException {
+		int a =1/0;
+		System.out.println(a);
+		return null;
 	}
 
 	@RequestMapping("update")

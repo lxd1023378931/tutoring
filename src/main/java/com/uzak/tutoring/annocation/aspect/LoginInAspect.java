@@ -24,6 +24,7 @@ import com.uzak.tutoring.properties.ConfigProperties;
 import com.uzak.tutoring.properties.TokenProperties;
 import com.uzak.tutoring.util.AjaxInfo;
 import com.uzak.tutoring.util.ObjectUtil;
+import com.uzak.tutoring.util.StatusCode;
 import com.uzak.tutoring.util.StringUtil;
 
 /**
@@ -61,19 +62,19 @@ public class LoginInAspect {
 		}
 		if (StringUtil.isEmpty(token)) {
 			isLogin = false;
-		}
-
-		if (StringUtil.isEmpty(tokenType)) {
-			// 请求满足配置中任一登录权限即可
-			for (String type : tokenTypesList) {
-				isLogin = isLogin(token, type);
-				if (isLogin) {
-					break;
-				}
-			}
 		} else {
-			// 必须满足传入的指定登录权限
-			isLogin = isLogin(token, tokenType);
+			if (StringUtil.isEmpty(tokenType)) {
+				// 请求满足配置中任一登录权限即可
+				for (String type : tokenTypesList) {
+					isLogin = isLogin(token, type);
+					if (isLogin) {
+						break;
+					}
+				}
+			} else {
+				// 必须满足传入的指定登录权限
+				isLogin = isLogin(token, tokenType);
+			}
 		}
 
 		if (!isLogin) {
@@ -82,7 +83,7 @@ public class LoginInAspect {
 			ServletOutputStream sos = null;
 			try {
 				sos = response.getOutputStream();
-				AjaxInfo info = new AjaxInfo(200, "您尚未登录，请先登录！");
+				AjaxInfo info = new AjaxInfo(StatusCode.NO_LOGGEDIN, "请先登录后再进行操作！");
 				sos.write(info.toString().getBytes());
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -13,26 +13,26 @@ import org.springframework.stereotype.Component;
  * @date 2018年3月30日
  */
 @Configuration
-@ConfigurationProperties(prefix = "config", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "token", ignoreUnknownFields = false)
 @PropertySource("classpath:token.properties") // 配置文件路径
 @Component
 public class TokenProperties {
-	private long token;
-	private long apptoken;
+	private Long token;
+	private Long apptoken;
 
-	public long getToken() {
+	public Long getToken() {
 		return token;
 	}
 
-	public void setToken(long token) {
+	public void setToken(Long token) {
 		this.token = token;
 	}
 
-	public long getApptoken() {
+	public Long getApptoken() {
 		return apptoken;
 	}
 
-	public void setApptoken(long apptoken) {
+	public void setApptoken(Long apptoken) {
 		this.apptoken = apptoken;
 	}
 
