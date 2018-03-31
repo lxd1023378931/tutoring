@@ -8,9 +8,6 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "handler", "hibernateLazyInitializer" })
 public class Dao<T> implements Serializable, Cloneable, IDao<T> {
 
 	/**
