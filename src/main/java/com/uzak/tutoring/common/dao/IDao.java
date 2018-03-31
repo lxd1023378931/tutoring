@@ -2,6 +2,8 @@ package com.uzak.tutoring.common.dao;
 
 import java.util.Map;
 
+import org.json.JSONObject;
+
 /**
  * 实体类通用方法重写
  * 
@@ -15,5 +17,12 @@ public interface IDao<T> {
 	 * 
 	 * @return
 	 */
-	public Map<String, Object> toMap();
+	Map<String, Object> toMap();
+
+	/**
+	 * 实体类转JSONObject
+	 * 
+	 * @return
+	 */
+	JSONObject toJSONObject();
 }

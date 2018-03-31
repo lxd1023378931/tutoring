@@ -17,24 +17,21 @@ import com.uzak.tutoring.common.dao.Dao;
 /**
  * 管理员实体类
  * 
- * @author Liang Xiudou
- * @date 2018/3/28
+ * @author 梁秀斗
+ * @mail 1023378931@qq.com
+ * @date 2018年3月31日
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "Manager")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Manager extends Dao<Manager> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -365326455979920932L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 	/**
 	 * 用户名
 	 */
-	@Id
 	@Column
 	private String name;
 	/**
@@ -56,12 +53,12 @@ public class Manager extends Dao<Manager> {
 	 * 角色ID
 	 */
 	@Column
-	private long roleID;
+	private Long roleID;
 	/**
 	 * 部门ID
 	 */
 	@Column
-	private long departmentID;
+	private Long departmentID;
 	/**
 	 * 备用字段1
 	 */
@@ -102,11 +99,11 @@ public class Manager extends Dao<Manager> {
 	@Column
 	protected String isDel;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -142,19 +139,19 @@ public class Manager extends Dao<Manager> {
 		this.tel = tel;
 	}
 
-	public long getRoleID() {
+	public Long getRoleID() {
 		return roleID;
 	}
 
-	public void setRoleID(long roleID) {
+	public void setRoleID(Long roleID) {
 		this.roleID = roleID;
 	}
 
-	public long getDepartmentID() {
+	public Long getDepartmentID() {
 		return departmentID;
 	}
 
-	public void setDepartmentID(long departmentID) {
+	public void setDepartmentID(Long departmentID) {
 		this.departmentID = departmentID;
 	}
 
@@ -222,8 +219,4 @@ public class Manager extends Dao<Manager> {
 		this.isDel = isDel;
 	}
 
-	@Override
-	public int hashCode() {
-		return this.getId();
-	}
 }

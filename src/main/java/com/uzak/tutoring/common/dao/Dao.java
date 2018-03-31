@@ -2,9 +2,15 @@ package com.uzak.tutoring.common.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({ "handler", "hibernateLazyInitializer" })
 public class Dao<T> implements Serializable, Cloneable, IDao<T> {
 
 	/**
@@ -14,24 +20,29 @@ public class Dao<T> implements Serializable, Cloneable, IDao<T> {
 
 	@Override
 	public Map<String, Object> toMap() {
+		Map<String, Object> map = new HashMap<>();
 		try {
 			@SuppressWarnings("rawtypes")
 			Class<? extends Dao> clazz = this.getClass();
-			Map<String, Object> map = new HashMap<>();
 			Field[] fields = clazz.getDeclaredFields();
 			for (Field field : fields) {
 				field.setAccessible(true);
-				map.put(field.getName(), field.get(this));
+				// 过滤掉由final修饰的属性
+				if (!Modifier.isFinal(field.getModifiers())) {
+					map.put(field.getName(), field.get(this));
+				}
 			}
-			return map;
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return map;
 	}
 
+	/**
+	 * 比较所有对象属性值，不包括final修饰的属性
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -47,13 +58,21 @@ public class Dao<T> implements Serializable, Cloneable, IDao<T> {
 			if (clazz.getName().equals(obj.getClass().getName())) {
 				Field[] fieldsA = clazz.getDeclaredFields();
 				Field[] fieldsB = obj.getClass().getDeclaredFields();
-				for (int i = 0; i < fieldsA.length; i++) {
-					fieldsA[i].setAccessible(true);
-					fieldsB[i].setAccessible(true);
-					if (!fieldsA[i].get(this).equals(fieldsB[i].get(obj))) {
-						flag = false;
+				if (fieldsA.length == fieldsB.length) {
+					for (int i = 0; i < fieldsA.length; i++) {
+						fieldsA[i].setAccessible(true);
+						fieldsB[i].setAccessible(true);
+						// 过滤掉由final修饰的属性
+						if (!Modifier.isFinal(fieldsA[i].getModifiers()) && !Modifier.isFinal(fieldsB[i].getModifiers())) {
+							flag = fieldsA[i].get(this) == null ? (fieldsB[i].get(obj) == null ? true : false)
+									: (fieldsA[i].get(this).equals(fieldsB[i].get(obj)) ? true : false);
+						}
 					}
+				} else {
+					flag = false;
 				}
+			} else {
+				flag = false;
 			}
 		} catch (IllegalArgumentException e) {
 			flag = false;
@@ -65,24 +84,27 @@ public class Dao<T> implements Serializable, Cloneable, IDao<T> {
 		return flag;
 	}
 
+	/**
+	 * 不能保证equals为false时hashCode一定不相等
+	 * 然而，程序员必须意识到，hashCode返回独一无二的散列码，会让存储这个对象的hashtables更好地工作。
+	 */
 	@Override
-	public String toString() {
-		Map<String, Object> map = this.toMap();
-		if (map == null) {
-			return "";
-		}
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		map.forEach((k, v) -> {
-			sb.append(k).append(":").append(v).append(",");
-		});
-		sb.deleteCharAt(sb.length() - 1);
-		sb.append("}");
-		return sb.toString();
+	public int hashCode() {
+		return this.toString().hashCode();
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	public JSONObject toJSONObject() {
+		return new JSONObject(this.toMap());
+	}
+
+	@Override
+	public String toString() {
+		return this.toMap().toString();
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
 

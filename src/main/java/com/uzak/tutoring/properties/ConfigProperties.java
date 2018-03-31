@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
  */
 @Configuration // 表明这是一个配置类
 // 绑定属性。prefix用来选择属性的前缀，ignoreUnknownFields是用来告诉SpringBoot在有属性不能匹配到声明的域时抛出异常。
-@ConfigurationProperties(prefix = "cors", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "config", ignoreUnknownFields = false)
 @PropertySource("classpath:config.properties") // 配置文件路径
 @Component
-public class CorsProperties {
+public class ConfigProperties {
 	private String AccessControlAllowOrigin;
 	private String AccessControlAllowMethods;
 	private String AccessControlMaxAge;

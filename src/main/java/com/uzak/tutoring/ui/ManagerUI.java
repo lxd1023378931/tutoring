@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.uzak.tutoring.annocation.LoggedIn;
 import com.uzak.tutoring.common.util.DaoUtil;
 import com.uzak.tutoring.entity.Manager;
 
@@ -21,12 +22,14 @@ import com.uzak.tutoring.entity.Manager;
 public class ManagerUI {
 	@Autowired
 	DaoUtil<Manager> dao;
-	
+
 	@RequestMapping("do")
 	@ResponseBody
-	public String doIt() {
+	@LoggedIn("token")
+	public String doIt(String a) {
 		return "12442141";
 	}
+
 	@RequestMapping("save")
 	@ResponseBody
 	public Manager save(Manager manager) {
