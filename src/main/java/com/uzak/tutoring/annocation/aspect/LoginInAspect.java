@@ -17,13 +17,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.uzak.tutoring.annocation.LoggedIn;
+import com.uzak.tutoring.bl.LoginBL;
 import com.uzak.tutoring.common.util.IDaoUtil;
 import com.uzak.tutoring.entity.common.UZToken;
 import com.uzak.tutoring.exception.LoggedInException;
 import com.uzak.tutoring.properties.ConfigProperties;
 import com.uzak.tutoring.properties.TokenProperties;
 import com.uzak.tutoring.util.AjaxInfo;
-import com.uzak.tutoring.util.ObjectUtil;
 import com.uzak.tutoring.util.StatusCode;
 import com.uzak.tutoring.util.StringUtil;
 
@@ -43,6 +43,8 @@ public class LoginInAspect {
 	private TokenProperties tokenProperties;
 	@Autowired
 	private IDaoUtil<UZToken> dao;
+	@Autowired
+	private LoginBL loginBL;
 
 	@Before(value = "within(@org.springframework.stereotype.Controller *) && @annotation(loggedIn)")
 	public void loginLimit(JoinPoint jp, LoggedIn loggedIn) throws LoggedInException {
@@ -66,14 +68,14 @@ public class LoginInAspect {
 			if (StringUtil.isEmpty(tokenType)) {
 				// 请求满足配置中任一登录权限即可
 				for (String type : tokenTypesList) {
-					isLogin = isLogin(token, type);
+					isLogin = loginBL.isLogin(token, type);
 					if (isLogin) {
 						break;
 					}
 				}
 			} else {
 				// 必须满足传入的指定登录权限
-				isLogin = isLogin(token, tokenType);
+				isLogin = loginBL.isLogin(token, tokenType);
 			}
 		}
 
@@ -99,28 +101,4 @@ public class LoginInAspect {
 		}
 	}
 
-	/**
-	 * 判断是否登录
-	 * 
-	 * @param token
-	 * @param type
-	 * @return
-	 */
-	private boolean isLogin(String token, String type) {
-		UZToken uzToken = new UZToken();
-		uzToken.setType(type);
-		uzToken.setToken(token);
-		if (dao.fill(uzToken)) {
-			long currentTime = System.currentTimeMillis();
-			if (currentTime < uzToken.getExpireTime()) {
-				Object obj = ObjectUtil.toMap(tokenProperties).get(type);
-				long time = (ObjectUtil.isDigit(obj) && obj.toString().indexOf(".") == -1) ? Long.parseLong(obj.toString()) : 0;
-				uzToken.setExpireTime(uzToken.getExpireTime() + time);
-				dao.update(uzToken);
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
 }

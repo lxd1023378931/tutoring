@@ -28,6 +28,17 @@ public class AjaxInfo implements Serializable {
 		this.data = data;
 	}
 
+	public void put(int status, String message) {
+		this.status = status;
+		this.message = message;
+	}
+
+	public void put(int status, String message, Object data) {
+		this.status = status;
+		this.message = message;
+		this.data = data;
+	}
+
 	public int getStatus() {
 		return status;
 	}

@@ -148,6 +148,11 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 	}
 
 	@Override
+	public List<T> query(String hql, Object... params) {
+		return query(hql, false, params);
+	}
+
+	@Override
 	public List<T> query(String hql, boolean cacheable, Object... params) {
 		@SuppressWarnings("unchecked")
 		Query<T> query = getSession().createQuery(hql);
@@ -157,6 +162,11 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 		// 是否开启查询缓存，数据变化不频繁查询参数较稳定的建议开启查询缓存
 		query.setCacheable(cacheable);
 		return (List<T>) query.list();
+	}
+
+	@Override
+	public List<T> query(String hql, int pageIndex, int pageSize, Object... params) {
+		return query(hql, false, pageIndex, pageSize, params);
 	}
 
 	@Override

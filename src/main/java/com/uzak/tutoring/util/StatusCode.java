@@ -16,4 +16,6 @@ public class StatusCode {
 	public static final int NO_LOGGEDIN = 1001;
 	// 抛出Exception
 	public static final int UNCATCH_EXCEPTION = 1002;
+	// 前台参数错误
+	public static final int PARAMS_ERROR = 1003;
 }

@@ -94,11 +94,31 @@ public interface IDaoUtil<T> {
 	 * 不分页执行hql查询语句
 	 * 
 	 * @param hql
+	 * @param params
+	 * @return
+	 */
+	List<T> query(String hql, Object... params);
+
+	/**
+	 * 不分页执行hql查询语句
+	 * 
+	 * @param hql
 	 * @param cacheable 是否开启查询缓存
 	 * @param params
 	 * @return
 	 */
 	List<T> query(String hql, boolean cacheable, Object... params);
+
+	/**
+	 * 分页执行hql查询语句
+	 * 
+	 * @param hql
+	 * @param pageIndex
+	 * @param pageSize
+	 * @param params
+	 * @return
+	 */
+	List<T> query(String hql, int pageIndex, int pageSize, Object... params);
 
 	/**
 	 * 分页执行hql查询语句

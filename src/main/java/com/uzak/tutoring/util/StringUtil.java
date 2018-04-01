@@ -79,11 +79,19 @@ public class StringUtil {
 
 		for (int j = 0; i < l; ++i) {
 			// 高4位
-			out[j++] = HexDigits[data[i] >>> 4];
+			out[j++] = HexDigits[(240 & data[i]) >>> 4];
 			// 低4位
 			out[j++] = HexDigits[15 & data[i]];
 		}
 
 		return new String(out);
+	}
+
+	public static void main(String[] args) {
+		try {
+			System.out.println(md5Hex("admin"));
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -65,7 +65,7 @@ public class ManagerUI {
 	@RequestMapping("list")
 	@ResponseBody
 	public List<UZManager> list() {
-		return dao.query("from Manager", true);
+		return dao.query("from Manager");
 	}
 
 	@RequestMapping("set")

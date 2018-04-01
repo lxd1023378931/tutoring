@@ -32,6 +32,6 @@ public class ExceptionHandle {
 		exception.setDetail(e.getMessage());
 		exception.setAddTime(new Date());
 		dao.save(exception);
-		return new AjaxInfo(StatusCode.UNCATCH_EXCEPTION, "系统内部异常！");
+		return new AjaxInfo(StatusCode.UNCATCH_EXCEPTION, e.getMessage());
 	}
 }
