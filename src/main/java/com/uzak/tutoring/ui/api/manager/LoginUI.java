@@ -6,12 +6,14 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uzak.tutoring.bl.LoginBL;
 import com.uzak.tutoring.bl.manager.MLoginBL;
+import com.uzak.tutoring.entity.UZManager;
 import com.uzak.tutoring.util.AjaxInfo;
 import com.uzak.tutoring.util.StatusCode;
 import com.uzak.tutoring.util.StringUtil;
@@ -34,14 +36,14 @@ public class LoginUI {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public AjaxInfo login(@RequestParam String name, @RequestParam String password)
+	public AjaxInfo login(@RequestBody UZManager manager)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		AjaxInfo info = new AjaxInfo();
-		if (StringUtil.isEmpty(name) || StringUtil.isEmpty(password)) {
+		if (StringUtil.isEmpty(manager.getName()) || StringUtil.isEmpty(manager.getPassword())) {
 			info.put(StatusCode.PARAMS_ERROR, "用户名或密码为空");
 			return info;
 		}
-		info = mLoginBL.login(name, password);
+		info = mLoginBL.login(manager.getName(), manager.getPassword());
 		return info;
 	}
 	/**

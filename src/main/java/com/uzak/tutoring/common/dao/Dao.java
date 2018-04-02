@@ -5,8 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Map;
 
-import org.json.JSONObject;
-
+import com.alibaba.fastjson.JSONObject;
 import com.uzak.tutoring.util.ObjectUtil;
 
 public class Dao<T> implements Serializable, Cloneable, IDao<T> {

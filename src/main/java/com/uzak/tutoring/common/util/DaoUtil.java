@@ -38,7 +38,7 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 	public boolean saveOrUpdate(T entity) {
 		boolean flag = false;
 		try {
-			getSession().saveOrUpdate(entity);
+			getSession().merge(entity);
 			flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 	public boolean update(T entity) {
 		boolean flag = false;
 		try {
-			getSession().update(entity);
+			getSession().merge(entity);
 			flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();

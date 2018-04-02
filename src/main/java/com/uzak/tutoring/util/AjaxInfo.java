@@ -2,7 +2,7 @@ package com.uzak.tutoring.util;
 
 import java.io.Serializable;
 
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 public class AjaxInfo implements Serializable {
 	/**

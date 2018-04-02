@@ -2,7 +2,7 @@ package com.uzak.tutoring.common.dao;
 
 import java.util.Map;
 
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 实体类通用方法重写
