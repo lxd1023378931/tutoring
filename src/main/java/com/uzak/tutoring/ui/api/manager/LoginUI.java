@@ -4,8 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +33,7 @@ public class LoginUI {
 	 * @throws UnsupportedEncodingException
 	 * @throws NoSuchAlgorithmException
 	 */
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public AjaxInfo login(@RequestParam String name, @RequestParam String password)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		AjaxInfo info = new AjaxInfo();
@@ -48,7 +49,7 @@ public class LoginUI {
 	 * @param token
 	 * @return
 	 */
-	@RequestMapping(value="/logged",method=RequestMethod.GET)
+	@GetMapping(value="/logged")
 	public AjaxInfo isLogin(@RequestParam String token,@RequestParam String type) {
 		AjaxInfo info = new AjaxInfo();
 		if (StringUtil.isEmpty(token) || StringUtil.isEmpty(type)) {

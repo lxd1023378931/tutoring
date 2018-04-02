@@ -18,11 +18,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.uzak.tutoring.annocation.LoggedIn;
 import com.uzak.tutoring.bl.LoginBL;
-import com.uzak.tutoring.common.util.IDaoUtil;
-import com.uzak.tutoring.entity.common.UZToken;
 import com.uzak.tutoring.exception.LoggedInException;
 import com.uzak.tutoring.properties.ConfigProperties;
-import com.uzak.tutoring.properties.TokenProperties;
 import com.uzak.tutoring.util.AjaxInfo;
 import com.uzak.tutoring.util.StatusCode;
 import com.uzak.tutoring.util.StringUtil;
@@ -39,10 +36,6 @@ import com.uzak.tutoring.util.StringUtil;
 public class LoginInAspect {
 	@Autowired
 	private ConfigProperties configProperties;
-	@Autowired
-	private TokenProperties tokenProperties;
-	@Autowired
-	private IDaoUtil<UZToken> dao;
 	@Autowired
 	private LoginBL loginBL;
 
