@@ -14,7 +14,7 @@ import com.uzak.tutoring.common.dao.Dao;
 @Entity
 @Table(name = "UZToken")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class UZToken extends Dao<UZToken> {
+public class UZToken extends Dao {
 	@Id
 	@Column(length = 200)
 	private String type;

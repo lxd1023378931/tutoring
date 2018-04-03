@@ -26,7 +26,7 @@ import com.uzak.tutoring.util.ObjectUtil;
 @Service
 @Cacheable
 @Transactional
-public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
+public class DaoUtil<T extends IDao> implements IDaoUtil<T> {
 	@Autowired
 	private EntityManager entityManager;
 
@@ -93,7 +93,6 @@ public class DaoUtil<T extends IDao<?>> implements IDaoUtil<T> {
 		return flag;
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean fill(T entity) {
 		boolean flag = false;

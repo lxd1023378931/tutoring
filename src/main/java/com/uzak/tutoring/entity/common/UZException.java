@@ -15,7 +15,7 @@ import com.uzak.tutoring.util.YesOrNo;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "UZException")
-public class UZException extends Dao<UZException> {
+public class UZException extends Dao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

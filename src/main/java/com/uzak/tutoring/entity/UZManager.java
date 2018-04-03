@@ -25,7 +25,7 @@ import com.uzak.tutoring.common.dao.Dao;
 @Entity
 @Table(name = "UZManager")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class UZManager extends Dao<UZManager> {
+public class UZManager extends Dao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

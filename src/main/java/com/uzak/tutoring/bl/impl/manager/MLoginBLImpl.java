@@ -21,12 +21,14 @@ import com.uzak.tutoring.util.UserType;
 
 @Service
 public class MLoginBLImpl implements MLoginBL {
+	@SuppressWarnings("rawtypes")
 	@Autowired
 	private IDaoUtil dao;
 
 	@Autowired
 	private TokenProperties tokenProperties;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public AjaxInfo login(String name, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		String md5Password = StringUtil.md5Hex(password);

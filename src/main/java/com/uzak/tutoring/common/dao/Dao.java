@@ -8,7 +8,7 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 import com.uzak.tutoring.util.ObjectUtil;
 
-public class Dao<T> implements Serializable, Cloneable, IDao<T> {
+public class Dao implements Serializable, Cloneable, IDao {
 
 	/**
 	 * 

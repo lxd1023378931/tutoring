@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uzak.tutoring.annocation.LoggedIn;
-import com.uzak.tutoring.common.util.DaoUtil;
+import com.uzak.tutoring.common.util.IDaoUtil;
 import com.uzak.tutoring.entity.UZManager;
 import com.uzak.tutoring.exception.NullKeyException;
 
@@ -22,7 +22,7 @@ import com.uzak.tutoring.exception.NullKeyException;
 @RequestMapping("/manager/")
 public class ManagerUI {
 	@Autowired
-	DaoUtil<UZManager> dao;
+	IDaoUtil<UZManager> dao;
 
 	@RequestMapping("do")
 	@ResponseBody

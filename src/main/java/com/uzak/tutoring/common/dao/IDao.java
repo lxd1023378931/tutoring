@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSONObject;
  * @mail liangxiudou@zving.com
  * @date 2018年3月29日
  */
-public interface IDao<T> {
+public interface IDao {
 	/**
 	 * 实体类转Map
 	 * 
