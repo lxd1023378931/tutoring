@@ -86,12 +86,4 @@ public class StringUtil {
 
 		return new String(out);
 	}
-
-	public static void main(String[] args) {
-		try {
-			System.out.println(md5Hex("admin"));
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-	}
 }

@@ -50,7 +50,7 @@ public class DaoUtil<T extends IDao> implements IDaoUtil<T> {
 	public boolean delete(T entity) {
 		boolean flag = false;
 		try {
-			getSession().delete(entity);
+			getSession().delete(getSession().merge(entity));
 			flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();

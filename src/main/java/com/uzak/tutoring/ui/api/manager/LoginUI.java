@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +20,14 @@ import com.uzak.tutoring.util.StatusCode;
 import com.uzak.tutoring.util.StringUtil;
 
 @RestController
-@RequestMapping("api/m/login")
+@RequestMapping("api/m/")
 public class LoginUI {
 	@Autowired
 	private LoginBL loginBL;
 
 	@Autowired
 	private MLoginBL mLoginBL;
+
 	/**
 	 * 登录接口
 	 * 
@@ -35,9 +37,8 @@ public class LoginUI {
 	 * @throws UnsupportedEncodingException
 	 * @throws NoSuchAlgorithmException
 	 */
-	@PostMapping
-	public AjaxInfo login(@RequestBody UZManager manager)
-			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	@PostMapping(value="/login")
+	public AjaxInfo login(@RequestBody UZManager manager) {
 		AjaxInfo info = new AjaxInfo();
 		if (StringUtil.isEmpty(manager.getName()) || StringUtil.isEmpty(manager.getPassword())) {
 			info.put(StatusCode.PARAMS_ERROR, "用户名或密码为空");
@@ -46,22 +47,41 @@ public class LoginUI {
 		info = mLoginBL.login(manager.getName(), manager.getPassword());
 		return info;
 	}
+
+	/**
+	 * 退出接口
+	 * 
+	 * @param manager
+	 * @return
+	 */
+	@GetMapping(value="/logout/{id}")
+	public AjaxInfo logout(@PathVariable(value = "id") Long id) {
+		AjaxInfo info = new AjaxInfo();
+		if (id == null || id == 0) {
+			info.put(StatusCode.PARAMS_ERROR, "用户ID为空");
+			return info;
+		}
+		info = mLoginBL.logout(id);
+		return info;
+	}
+
 	/**
 	 * 判断是否在登录状态
+	 * 
 	 * @param token
 	 * @return
 	 */
-	@GetMapping(value="/logged")
-	public AjaxInfo isLogin(@RequestParam String token,@RequestParam String type) {
+	@GetMapping(value = "/logged")
+	public AjaxInfo isLogin(@RequestParam String token, @RequestParam String type) {
 		AjaxInfo info = new AjaxInfo();
 		if (StringUtil.isEmpty(token) || StringUtil.isEmpty(type)) {
 			info.put(StatusCode.NO_LOGGEDIN, "未登录");
 			return info;
 		}
-		if(loginBL.isLogin(token,type)) {
+		if (loginBL.isLogin(token, type)) {
 			info.put(StatusCode.SUCCESS, "登录成功");
-		}else {
-			info.put(StatusCode.NO_LOGGEDIN, "未登录");			
+		} else {
+			info.put(StatusCode.NO_LOGGEDIN, "未登录");
 		}
 		return info;
 	}

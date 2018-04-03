@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.uzak.tutoring.bl.LoginBL;
 import com.uzak.tutoring.bl.manager.MLoginBL;
 import com.uzak.tutoring.common.util.IDaoUtil;
 import com.uzak.tutoring.entity.UZManager;
 import com.uzak.tutoring.entity.common.UZToken;
-import com.uzak.tutoring.properties.TokenProperties;
 import com.uzak.tutoring.util.AjaxInfo;
-import com.uzak.tutoring.util.ObjectUtil;
 import com.uzak.tutoring.util.StatusCode;
 import com.uzak.tutoring.util.StringUtil;
 import com.uzak.tutoring.util.UserType;
@@ -24,16 +23,20 @@ public class MLoginBLImpl implements MLoginBL {
 	@SuppressWarnings("rawtypes")
 	@Autowired
 	private IDaoUtil dao;
-
 	@Autowired
-	private TokenProperties tokenProperties;
+	private LoginBL loginBL;
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public AjaxInfo login(String name, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		String md5Password = StringUtil.md5Hex(password);
+	public AjaxInfo login(String name, String password) {
+		String md5Password = "";
 		List<UZManager> mList = dao.query("from UZManager where Name=?", name);
 		UZManager manager = null;
+		try {
+			md5Password = StringUtil.md5Hex(password);
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		for (UZManager m : mList) {
 			if (m.getPassword().equals(md5Password)) {
 				manager = m;
@@ -41,28 +44,34 @@ public class MLoginBLImpl implements MLoginBL {
 			}
 		}
 		if (manager != null) {
-			// 返回密码不显示
-			String token = StringUtil.md5Hex(manager.getName() + manager.getPassword() + UserType.MANAGER);
-			System.out.println(token);
-			Object obj = ObjectUtil.toMap(tokenProperties).get(UserType.MANAGER);
-			long time = (ObjectUtil.isDigit(obj) && obj.toString().indexOf(".") == -1) ? Long.parseLong(obj.toString()) : 3600000;
-			UZToken uzToken = new UZToken();
-			uzToken.setType(UserType.MANAGER);
-			uzToken.setToken(token);
-			if (dao.fill(uzToken)) {
-				uzToken.setExpireTime(uzToken.getExpireTime() + time);
-				dao.update(uzToken);
+			UZToken uzToken = loginBL.login(manager.getName(), manager.getPassword(), UserType.MANAGER);
+			if (uzToken != null) {
+				JSONObject result = new JSONObject();
+				result.put("token", uzToken.getToken());
+				result.put("manager", manager);
+				return new AjaxInfo(StatusCode.SUCCESS, "登录成功", result);
 			} else {
-				uzToken.setExpireTime(System.currentTimeMillis() + time);
-				dao.save(uzToken);
+				return new AjaxInfo(StatusCode.UNCATCH_EXCEPTION, "系统异常", null);
 			}
-			JSONObject result = new JSONObject();
-			result.put("token", token);
-			result.put("manager", manager);
-			return new AjaxInfo(StatusCode.SUCCESS, "登录成功", result);
 		} else {
 			return new AjaxInfo(StatusCode.FAIL, "用户名或密码错误");
 		}
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public AjaxInfo logout(long id) {
+		UZManager manager = new UZManager();
+		manager.setId(id);
+		if (dao.fill(manager)) {
+			if (loginBL.logout(manager.getName(), manager.getPassword(), UserType.MANAGER)) {
+				return new AjaxInfo(StatusCode.SUCCESS, "退出成功");
+			} else {
+				return new AjaxInfo(StatusCode.FAIL, "退出失败");
+			}
+		} else {
+			return new AjaxInfo(StatusCode.FAIL, "用户不存在");
+		}
 	}
 }

@@ -14,13 +14,21 @@ import com.uzak.tutoring.util.AjaxInfo;
  */
 public interface MLoginBL {
 	/**
-	 * 登录接口
+	 * 登录功能
 	 * 
 	 * @param name
 	 * @param password
 	 * @return
-	 * @throws UnsupportedEncodingException 
-	 * @throws NoSuchAlgorithmException 
+	 * @throws UnsupportedEncodingException
+	 * @throws NoSuchAlgorithmException
 	 */
-	public AjaxInfo login(String name, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	public AjaxInfo login(String name, String password);
+
+	/**
+	 * 退出功能
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public AjaxInfo logout(long id);
 }

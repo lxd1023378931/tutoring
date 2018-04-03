@@ -16,7 +16,7 @@ public class Dao implements Serializable, Cloneable, IDao {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Map<String, Object> toMap() {
+	public Map<String, Object> toMap() throws IllegalArgumentException, IllegalAccessException {
 		return ObjectUtil.toMap(this);
 	}
 
@@ -74,13 +74,18 @@ public class Dao implements Serializable, Cloneable, IDao {
 	}
 
 	@Override
-	public JSONObject toJSONObject() {
+	public JSONObject toJSONObject() throws IllegalArgumentException, IllegalAccessException {
 		return new JSONObject(this.toMap());
 	}
 
 	@Override
 	public String toString() {
-		return this.toMap().toString();
+		try {
+			return this.toMap().toString();
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	@Override

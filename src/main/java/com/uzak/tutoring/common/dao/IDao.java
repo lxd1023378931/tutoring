@@ -16,13 +16,17 @@ public interface IDao {
 	 * 实体类转Map
 	 * 
 	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
 	 */
-	Map<String, Object> toMap();
+	Map<String, Object> toMap() throws IllegalArgumentException, IllegalAccessException;
 
 	/**
 	 * 实体类转JSONObject
 	 * 
 	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
 	 */
-	JSONObject toJSONObject();
+	JSONObject toJSONObject() throws IllegalArgumentException, IllegalAccessException;
 }

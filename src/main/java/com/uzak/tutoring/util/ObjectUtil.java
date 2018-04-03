@@ -30,11 +30,11 @@ public class ObjectUtil {
 		String s = o.toString();
 		return Pattern.matches(DIGIT_PATTERN, s);
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(isDigit("0.1"));
 	}
-	
+
 	public static boolean isNotEmpty(Object o) {
 		return !isEmpty(o);
 	}
@@ -66,10 +66,10 @@ public class ObjectUtil {
 
 	public static Map<String, Object> toMap(Object obj) {
 		Map<String, Object> map = new HashMap<>();
+		@SuppressWarnings("rawtypes")
+		Class clazz = obj.getClass();
+		Field[] fields = clazz.getDeclaredFields();
 		try {
-			@SuppressWarnings("rawtypes")
-			Class clazz = obj.getClass();
-			Field[] fields = clazz.getDeclaredFields();
 			for (Field field : fields) {
 				field.setAccessible(true);
 				// 过滤掉由final修饰的属性
@@ -77,9 +77,7 @@ public class ObjectUtil {
 					map.put(field.getName(), field.get(obj));
 				}
 			}
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return map;
