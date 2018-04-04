@@ -164,7 +164,7 @@ public class DaoUtil<T extends IDao> implements IDaoUtil<T> {
 	}
 
 	@Override
-	public List<T> query(String hql, int pageIndex, int pageSize, Object... params) {
+	public List<T> queryByPage(String hql, int pageIndex, int pageSize, Object... params) {
 		return query(hql, false, pageIndex, pageSize, params);
 	}
 
@@ -192,7 +192,7 @@ public class DaoUtil<T extends IDao> implements IDaoUtil<T> {
 
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
-	public List<T> querySql(String sql, int pageIndex, int pageSize, Object... params) {
+	public List<T> querySqlByPage(String sql, int pageIndex, int pageSize, Object... params) {
 		Query<T> query = getSession().createSQLQuery(sql);
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i, params[i]);

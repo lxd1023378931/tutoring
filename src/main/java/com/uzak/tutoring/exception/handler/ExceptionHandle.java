@@ -27,6 +27,7 @@ public class ExceptionHandle {
 	@ResponseBody
 	@ExceptionHandler(value = Exception.class)
 	public AjaxInfo exception(Exception e) {
+		e.printStackTrace();
 		UZException exception = new UZException();
 		exception.setType(e.getClass().getSimpleName());
 		exception.setDetail(e.getMessage());

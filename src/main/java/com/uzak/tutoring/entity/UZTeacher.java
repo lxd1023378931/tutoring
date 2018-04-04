@@ -1,0 +1,288 @@
+package com.uzak.tutoring.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.uzak.tutoring.common.dao.Dao;
+/**
+ * 教师基本信息
+ * @author 梁秀斗
+ * @mail liangxiudou@zving.com
+ * @date 2018年4月4日
+ */
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "UZTeacher")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+public class UZTeacher extends Dao {
+	/**
+	 * ID
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	/**
+	 * 姓名
+	 */
+	@Column(length = 200)
+	private String name;
+	/**
+	 * 性别
+	 */
+	@Column
+	private String sex;
+	/**
+	 * 省份
+	 */
+	@Column
+	private String province;
+	/**
+	 * 市
+	 */
+	@Column
+	private String city;
+	/**
+	 * 地区
+	 */
+	@Column
+	private String address;
+	/**
+	 * 生日
+	 */
+	@Column
+	private Date birthday;
+	/**
+	 * 学历
+	 */
+	@Column(length = 200)
+	private String education;
+	/**
+	 * 专业
+	 */
+	@Column
+	private String major;
+	/**
+	 * 学校
+	 */
+	@Column
+	private String school;
+	/**
+	 * 户籍
+	 */
+	@Column
+	private String navitePlace;
+	/**
+	 * 上次登录时间
+	 */
+	@Column
+	private Date lastLoginTime;
+	/**
+	 * 头像
+	 */
+	@Column
+	private String logo;
+	@Column
+	private String prop1;
+	@Column
+	private String prop2;
+	@Column
+	private String prop3;
+	@Column
+	private String prop4;
+	@Column
+	private String addUser;
+	@Column
+	private Date addTime;
+	@Column
+	private String modifyUser;
+	@Column
+	private Date modifyTime;
+	@Column(length = 2)
+	private String disable;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public String getNavitePlace() {
+		return navitePlace;
+	}
+
+	public void setNavitePlace(String navitePlace) {
+		this.navitePlace = navitePlace;
+	}
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getProp1() {
+		return prop1;
+	}
+
+	public void setProp1(String prop1) {
+		this.prop1 = prop1;
+	}
+
+	public String getProp2() {
+		return prop2;
+	}
+
+	public void setProp2(String prop2) {
+		this.prop2 = prop2;
+	}
+
+	public String getProp3() {
+		return prop3;
+	}
+
+	public void setProp3(String prop3) {
+		this.prop3 = prop3;
+	}
+
+	public String getProp4() {
+		return prop4;
+	}
+
+	public void setProp4(String prop4) {
+		this.prop4 = prop4;
+	}
+
+	public String getAddUser() {
+		return addUser;
+	}
+
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+
+	public Date getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getModifyUser() {
+		return modifyUser;
+	}
+
+	public void setModifyUser(String modifyUser) {
+		this.modifyUser = modifyUser;
+	}
+
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
+	}
+
+	public String getDisable() {
+		return disable;
+	}
+
+	public void setDisable(String disable) {
+		this.disable = disable;
+	}
+
+}

@@ -1,7 +1,8 @@
-package com.uzak.tutoring.bl.impl.manager;
+package com.uzak.tutoring.bl.manager.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import com.uzak.tutoring.util.StringUtil;
 import com.uzak.tutoring.util.UserType;
 
 @Service
-public class MLoginBLImpl implements MLoginBL {
+public class MLoginImpl implements MLoginBL {
 	@SuppressWarnings("rawtypes")
 	@Autowired
 	private IDaoUtil dao;
@@ -46,6 +47,8 @@ public class MLoginBLImpl implements MLoginBL {
 		if (manager != null) {
 			UZToken uzToken = loginBL.login(manager.getName(), manager.getPassword(), UserType.MANAGER);
 			if (uzToken != null) {
+				manager.setLastLoginTime(new Date());
+				dao.update(manager);
 				JSONObject result = new JSONObject();
 				result.put("token", uzToken.getToken());
 				result.put("manager", manager);

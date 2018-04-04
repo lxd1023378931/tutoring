@@ -79,7 +79,7 @@ public interface IDaoUtil<T> {
 	 * @param hql
 	 * @return
 	 */
-	List<T> querySql(String sql, int pageIndex, int pageSize, Object... params);
+	List<T> querySqlByPage(String sql, int pageIndex, int pageSize, Object... params);
 
 	/**
 	 * 执行sql更新语句
@@ -118,7 +118,7 @@ public interface IDaoUtil<T> {
 	 * @param params
 	 * @return
 	 */
-	List<T> query(String hql, int pageIndex, int pageSize, Object... params);
+	List<T> queryByPage(String hql, int pageIndex, int pageSize, Object... params);
 
 	/**
 	 * 分页执行hql查询语句

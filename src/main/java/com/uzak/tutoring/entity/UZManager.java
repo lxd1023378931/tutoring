@@ -60,6 +60,16 @@ public class UZManager extends Dao {
 	@Column
 	private Long departmentID;
 	/**
+	 * 头像
+	 */
+	@Column
+	private String logo;
+	/**
+	 * 上次登录时间
+	 */
+	@Column
+	private Date lastLoginTime;
+	/**
 	 * 备用字段1
 	 */
 	@Column
@@ -153,6 +163,14 @@ public class UZManager extends Dao {
 
 	public void setDepartmentID(Long departmentID) {
 		this.departmentID = departmentID;
+	}
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 
 	public String getProp1() {
