@@ -13,8 +13,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.uzak.tutoring.common.dao.Dao;
+
 /**
  * 教师基本信息
+ * 
  * @author 梁秀斗
  * @mail liangxiudou@zving.com
  * @date 2018年4月4日
@@ -75,6 +77,8 @@ public class UZTeacher extends Dao {
 	 */
 	@Column
 	private String school;
+	@Column
+	private String job;
 	/**
 	 * 户籍
 	 */
@@ -187,6 +191,14 @@ public class UZTeacher extends Dao {
 
 	public void setSchool(String school) {
 		this.school = school;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
 	}
 
 	public String getNavitePlace() {

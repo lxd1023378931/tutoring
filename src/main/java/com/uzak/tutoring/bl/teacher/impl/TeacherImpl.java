@@ -13,7 +13,6 @@ import com.uzak.tutoring.bl.teacher.TeacherBL;
 import com.uzak.tutoring.common.util.IDaoUtil;
 import com.uzak.tutoring.entity.UZTeacher;
 import com.uzak.tutoring.entity.UZTeacherIntroduce;
-import com.uzak.tutoring.pojo.TeacherInfo;
 import com.uzak.tutoring.util.AjaxInfo;
 import com.uzak.tutoring.util.JSONUtil;
 import com.uzak.tutoring.util.StatusCode;
@@ -21,7 +20,7 @@ import com.uzak.tutoring.util.StatusCode;
 @Service
 public class TeacherImpl implements TeacherBL {
 	@Autowired
-	private IDaoUtil<TeacherInfo> dao;
+	private IDaoUtil dao;
 
 	@Override
 	public AjaxInfo getTeachers(Map<String, Object> params, int pageIndex, int pageSize) {
