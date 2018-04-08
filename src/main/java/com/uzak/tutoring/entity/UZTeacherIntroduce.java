@@ -51,11 +51,6 @@ public class UZTeacherIntroduce extends Dao {
 	@Column
 	private String teachingMethod;
 	/**
-	 * 证书
-	 */
-	@Column
-	private String credential;
-	/**
 	 * 工资
 	 */
 	@Column
@@ -66,9 +61,9 @@ public class UZTeacherIntroduce extends Dao {
 	@Column
 	private String salaryUnit;
 	/**
-	 * 本站评分（1-10分，初始6分）
+	 * 本站评分（0-5分，初始3分）
 	 */
-	private Integer grade;
+	private String grade;
 
 	public Long getTid() {
 		return tid;
@@ -126,14 +121,6 @@ public class UZTeacherIntroduce extends Dao {
 		this.teachingMethod = teachingMethod;
 	}
 
-	public String getCredential() {
-		return credential;
-	}
-
-	public void setCredential(String credential) {
-		this.credential = credential;
-	}
-
 	public String getSalary() {
 		return salary;
 	}
@@ -150,11 +137,11 @@ public class UZTeacherIntroduce extends Dao {
 		this.salaryUnit = salaryUnit;
 	}
 
-	public Integer getGrade() {
+	public String getGrade() {
 		return grade;
 	}
 
-	public void setGrade(Integer grade) {
+	public void setGrade(String grade) {
 		this.grade = grade;
 	}
 
