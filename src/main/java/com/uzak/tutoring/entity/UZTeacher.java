@@ -41,6 +41,14 @@ public class UZTeacher extends Dao {
 	 */
 	private String password;
 	/**
+	 * 电话
+	 */
+	private String phone;
+	/**
+	 * 邮箱
+	 */
+	private String email;
+	/**
 	 * 姓名
 	 */
 	@Column(length = 200)
@@ -143,6 +151,22 @@ public class UZTeacher extends Dao {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getName() {

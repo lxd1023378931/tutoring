@@ -1,4 +1,4 @@
-package com.uzak.tutoring.util;
+package com.uzak.tutoring.pojo;
 
 import java.io.Serializable;
 

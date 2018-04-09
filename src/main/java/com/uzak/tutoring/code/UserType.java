@@ -1,4 +1,4 @@
-package com.uzak.tutoring.util;
+package com.uzak.tutoring.code;
 
 /**
  * 用户类型

@@ -1,4 +1,4 @@
-package com.uzak.tutoring.ui.api.manager;
+package com.uzak.tutoring.component.manage.api;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uzak.tutoring.bl.LoginBL;
-import com.uzak.tutoring.bl.manager.MLoginBL;
+import com.uzak.tutoring.code.StatusCode;
+import com.uzak.tutoring.component.manage.bl.MLoginBL;
 import com.uzak.tutoring.entity.UZManager;
-import com.uzak.tutoring.util.AjaxInfo;
-import com.uzak.tutoring.util.StatusCode;
+import com.uzak.tutoring.pojo.AjaxInfo;
 import com.uzak.tutoring.util.StringUtil;
 
 @RestController

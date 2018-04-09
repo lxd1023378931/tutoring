@@ -1,4 +1,4 @@
-package com.uzak.tutoring.bl.teacher;
+package com.uzak.tutoring.component.teacher.bl;
 /**
  * 
  * @author 梁秀斗
@@ -8,7 +8,7 @@ package com.uzak.tutoring.bl.teacher;
 
 import java.util.Map;
 
-import com.uzak.tutoring.util.AjaxInfo;
+import com.uzak.tutoring.pojo.AjaxInfo;
 
 /**
  * 教师操作类
@@ -24,5 +24,13 @@ public interface TeacherBL {
 	 * @param params
 	 * @return
 	 */
-	public AjaxInfo getTeachers(Map<String, Object> params,int pageIndex,int pageSize);
+	public AjaxInfo getTeachers(Map<String, Object> params, int pageIndex, int pageSize);
+
+	/**
+	 * 设置教师禁用或启用
+	 * 
+	 * @param teacherID
+	 * @return
+	 */
+	public AjaxInfo setStatus(long teacherID);
 }

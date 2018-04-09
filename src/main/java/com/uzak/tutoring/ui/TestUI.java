@@ -20,7 +20,7 @@ import com.uzak.tutoring.exception.NullKeyException;
  */
 @Controller
 @RequestMapping("/manager/")
-public class ManagerUI {
+public class TestUI {
 	@Autowired
 	IDaoUtil<UZManager> dao;
 

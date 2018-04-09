@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.uzak.tutoring.code.StatusCode;
 import com.uzak.tutoring.common.util.IDaoUtil;
 import com.uzak.tutoring.entity.common.UZException;
-import com.uzak.tutoring.util.AjaxInfo;
-import com.uzak.tutoring.util.StatusCode;
+import com.uzak.tutoring.pojo.AjaxInfo;
 
 /**
  * 捕获程序中遗漏的未处理异常
@@ -27,7 +27,6 @@ public class ExceptionHandle {
 	@ResponseBody
 	@ExceptionHandler(value = Exception.class)
 	public AjaxInfo exception(Exception e) {
-		e.printStackTrace();
 		UZException exception = new UZException();
 		exception.setType(e.getClass().getSimpleName());
 		exception.setDetail(e.getMessage());

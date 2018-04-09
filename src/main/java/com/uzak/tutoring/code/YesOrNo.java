@@ -1,4 +1,4 @@
-package com.uzak.tutoring.util;
+package com.uzak.tutoring.code;
 /**
  * Y/N
  * @author 梁秀斗

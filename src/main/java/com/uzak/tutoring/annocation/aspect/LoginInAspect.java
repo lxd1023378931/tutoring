@@ -18,10 +18,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.uzak.tutoring.annocation.LoggedIn;
 import com.uzak.tutoring.bl.LoginBL;
+import com.uzak.tutoring.code.StatusCode;
 import com.uzak.tutoring.exception.LoggedInException;
+import com.uzak.tutoring.pojo.AjaxInfo;
 import com.uzak.tutoring.properties.ConfigProperties;
-import com.uzak.tutoring.util.AjaxInfo;
-import com.uzak.tutoring.util.StatusCode;
 import com.uzak.tutoring.util.StringUtil;
 
 /**

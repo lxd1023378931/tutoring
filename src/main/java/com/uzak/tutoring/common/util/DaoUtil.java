@@ -220,8 +220,19 @@ public class DaoUtil<T extends IDao> implements IDaoUtil<T> {
 		return query.executeUpdate();
 	}
 
-	public int count(String hql, Object... params) {
-		return query(hql, false, params).size();
+	@SuppressWarnings({ "deprecation", "unchecked" })
+	@Override
+	public int count(String fromsql, Object... params) {
+		String sql = "select count(1) " + fromsql;
+		Query<T> query = getSession().createSQLQuery(sql);
+		for (int i = 0; i < params.length; i++) {
+			query.setParameter(i, params[i]);
+		}
+		@SuppressWarnings("rawtypes")
+		List list = query.list();
+		if (list != null && list.size() == 1) {
+			return Integer.valueOf(list.get(0).toString());
+		}
+		return 0;
 	}
-
 }

@@ -1,4 +1,4 @@
-package com.uzak.tutoring.bl;
+package com.uzak.tutoring.bl.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -6,12 +6,13 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uzak.tutoring.bl.LoginBL;
+import com.uzak.tutoring.code.UserType;
 import com.uzak.tutoring.common.util.IDaoUtil;
 import com.uzak.tutoring.entity.common.UZToken;
 import com.uzak.tutoring.properties.TokenProperties;
 import com.uzak.tutoring.util.ObjectUtil;
 import com.uzak.tutoring.util.StringUtil;
-import com.uzak.tutoring.util.UserType;
 
 @Service
 public class LoginBLImpl implements LoginBL {

@@ -1,9 +1,9 @@
-package com.uzak.tutoring.bl.manager;
+package com.uzak.tutoring.component.manage.bl;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
-import com.uzak.tutoring.util.AjaxInfo;
+import com.uzak.tutoring.pojo.AjaxInfo;
 
 /**
  * 管理员操作接口

@@ -9,8 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.uzak.tutoring.code.YesOrNo;
 import com.uzak.tutoring.common.dao.Dao;
-import com.uzak.tutoring.util.YesOrNo;
 
 @SuppressWarnings("serial")
 @Entity

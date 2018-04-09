@@ -131,4 +131,15 @@ public interface IDaoUtil<T> {
 	 * @return
 	 */
 	List<T> query(String hql, boolean cacheable, int pageIndex, int pageSize, Object... params);
+
+	/**
+	 * 查询条数
+	 * 
+	 * @param entity
+	 * @param wheresql
+	 * @param params
+	 * @return
+	 */
+	int count(String fromsql, Object... params);
+
 }
