@@ -38,8 +38,8 @@ public class LoginInAspect {
 	private ConfigProperties configProperties;
 	@Autowired
 	private LoginBL loginBL;
-
-	@Before(value = "within(@org.springframework.stereotype.RestController *) && @annotation(loggedIn)")
+  
+	@Before(value = "@annotation(loggedIn)")
 	public void loginLimit(JoinPoint jp, LoggedIn loggedIn) throws LoggedInException {
 		boolean isLogin = false;
 		// 获取HttpServletRequest

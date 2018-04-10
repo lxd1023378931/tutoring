@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uzak.tutoring.annocation.LoggedIn;
 import com.uzak.tutoring.bl.LoginBL;
 import com.uzak.tutoring.code.StatusCode;
+import com.uzak.tutoring.code.UserType;
 import com.uzak.tutoring.component.manage.bl.MLoginBL;
 import com.uzak.tutoring.entity.UZManager;
 import com.uzak.tutoring.pojo.AjaxInfo;
@@ -55,6 +57,7 @@ public class LoginUI {
 	 * @return
 	 */
 	@GetMapping(value="/logout/{id}")
+	@LoggedIn(UserType.MANAGER)
 	public AjaxInfo logout(@PathVariable(value = "id") Long id) {
 		AjaxInfo info = new AjaxInfo();
 		if (id == null || id == 0) {
